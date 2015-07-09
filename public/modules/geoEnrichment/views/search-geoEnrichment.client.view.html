@@ -1,0 +1,23 @@
+<section data-ng-controller="GeoEnrichmentController">
+	<div class="page-header">
+		<h1>New Search</h1>
+	</div>
+	<div class="col-md-12">
+		<form name="GeoEnrichmentForm" class="form-horizontal" data-ng-submit="search()" novalidate>
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label" for="location">Location</label>
+					<div class="controls">
+						<input name="location" type="text" data-ng-model="location" id="location" class="form-control" placeholder="Enter Location" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-default">
+				</div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</section>
