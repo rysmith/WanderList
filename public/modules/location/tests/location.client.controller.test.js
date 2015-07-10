@@ -1,10 +1,10 @@
 'use strict';
 
 (function() {
-	// Location search Controller Spec
-	describe('Location search Controller Tests', function() {
+	// Location Controller Spec
+	describe('Location Controller Tests', function() {
 		// Initialize global variables
-		var LocationSearchController,
+		var LocationController,
 			scope,
 			$httpBackend,
 			$stateParams,
@@ -44,8 +44,8 @@
 			$httpBackend = _$httpBackend_;
 			$location = _$location_;
 
-			// Initialize the Location search controller.
-			LocationSearchController = $controller('LocationSearchController', {
+			// Initialize the Location controller.
+			LocationController = $controller('LocationController', {
 				$scope: scope
 			});
 		}));
