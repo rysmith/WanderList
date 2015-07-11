@@ -19,7 +19,7 @@ exports.search = function(req, res) {
             form: {
                 f: 'json',
                 token: process.env.ESRI_TEMP_TOKEN,
-                studyAreas: '[{"geometry":{"x":-117.1956,"y":34.0572}}]'
+                studyAreas: '[{"address":{"text":"601 E. Anapamu Street, Santa Barbara"}}]'
             }
         }, function(error, response, body){
             console.log(body.results[0].value.FeatureSet[0]);
