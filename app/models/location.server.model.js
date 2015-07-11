@@ -10,6 +10,16 @@ var mongoose = require('mongoose'),
  * Location Schema
  */
 var LocationSchema = new Schema({
+	created: {
+		type: Date,
+		default: Date.now
+	},
+	location: {
+		type: Number,
+		default: '',
+		trim: true,
+		required: 'Location cannot be blank'
+	}
 
 });
 

@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('location').factory('Location', ['$resource',
+angular.module('locations').factory('Locations', ['$resource',
 	function($resource) {
-		return $resource('location/:locationId', {
+		return $resource('locations/:locationId', {
 			locationId: '@_id'
 		}, {
 			update: {

@@ -53,3 +53,4 @@ describe('Location Model Unit Tests:', function() {
 		done();
 	});
 });
+

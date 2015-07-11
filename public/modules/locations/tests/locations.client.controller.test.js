@@ -2,7 +2,7 @@
 
 (function() {
 	// Location Controller Spec
-	describe('Location Controller Tests', function() {
+	describe('Locations Controller Tests', function() {
 		// Initialize global variables
 		var LocationController,
 			scope,

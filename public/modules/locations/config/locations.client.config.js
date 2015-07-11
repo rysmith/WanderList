@@ -1,7 +1,7 @@
 'use strict';
 
 // Location module config
-angular.module('location').run(['Menus',
+angular.module('locations').run(['Menus',
 	function(Menus) {
 		// Config logic
 		// ...
