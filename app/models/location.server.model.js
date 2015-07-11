@@ -14,13 +14,23 @@ var LocationSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	location: {
-		type: Number,
-		default: '',
-		trim: true,
-		required: 'Location cannot be blank'
+	attributes: {
+		ObjectAVGHHSZ: Number, //float
+		HasData: Number, // int
+		ID: String, //quoted number eg "0"
+		OBJECTID: Number, //int
+		TOTFEMALES: Number, //int
+		TOTHH: Number, //int
+		TOTMALES: Number, //int
+		TOTPOP: Number, //int
+		X: Number, //float
+		Y: Number, //float
+		areaType: String,
+		bufferRadii: Number, //int
+		bufferUnits: String,
+		bufferUnitsAlias: String,
+		sourceCountry: String
 	}
-
 });
 
 mongoose.model('Location', LocationSchema);
