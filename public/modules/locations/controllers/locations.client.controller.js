@@ -1,7 +1,9 @@
 'use strict';
 
-angular.module('locations').controller('LocationsController', ['$scope', '$location', 'Locations',
-	function($scope, $location, Locations) {
+angular.module('locations').controller('LocationsController', ['$scope', '$location', 'Authentication', 'Locations',
+	function($scope, $location, Authentication, Locations) {
+
+        $scope.authentication = Authentication;
 
 		$scope.search = function () {
 			var location = new Locations({

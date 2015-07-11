@@ -8,11 +8,11 @@ var mongoose = require('mongoose'),
     request = require('request');
 
 exports.search = function(req, res) {
-    console.log('requests are coming in on create');
+
     console.log(req.body);
 
-
     var getGeoData = function(callback) {
+        
         request.post({
             url: 'http://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer/Geoenrichment/enrich',
             json:true,
@@ -25,13 +25,13 @@ exports.search = function(req, res) {
             console.log(body.results[0].value.FeatureSet[0]);
             callback(body.results[0].value.FeatureSet[0].features[0]);
         });
-    };
+    }; // end of getGeoData
 
     getGeoData(function(geoResponse) {
         return res.json(geoResponse);
     })
 
-};
+}; // end of search
 
 /**
  * Create a Location
