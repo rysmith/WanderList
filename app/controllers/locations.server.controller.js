@@ -61,7 +61,7 @@ exports.search = function(req, res) {
 
     getZillowData(req, res, function(zilloResponse) {
         parseString(zilloResponse, function (err, result) {
-            console.log(result['Demographics:demographics']);
+            console.log(result['Demographics:demographics'].message[0]);
 
             return res.json(result['Demographics:demographics'].response[0]);
         });

@@ -8,11 +8,12 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
 			var location = new Locations({
 				location: this.location
 			});
-			console.log(location);
 			location.$save(function (response) {
 				//$location.path('locations/' + response._id);
 				console.log(response);
-                $scope.searchResponses = response.charts[0].chart;
+                $scope.zillowCharts = response.charts[0].chart;
+                $scope.zillowDemographics = response.pages[0].page[2].tables[0].table[0].data[0].attribute;
+                $scope.zillowRegion = response.region[0];
 				$scope.location = '';
 			}, function (errorResponse) {
 				$scope.error = errorResponse.data.message;

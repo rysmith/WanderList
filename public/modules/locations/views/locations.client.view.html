@@ -1,5 +1,4 @@
 <section data-ng-controller="LocationsController">
-	<div id="location-search">
 		<form name="searchForm" class="form-horizontal" data-ng-submit="search()" novalidate>
 			<fieldset>
 				<div class="form-group">
@@ -14,13 +13,30 @@
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>
 				</div>
-				<div class="list-group">
-					<a data-ng-repeat="chart in searchResponses" class="list-group-item">
-						<h4 class="list-group-item-heading">{{chart.name[0]}}</h4>
-						<img src="{{chart.url[0]}}" alt=""/>
-					</a>
+				<div ng-show="zillowRegion">
+					<p>Results returned for <strong>{{zillowRegion.city[0]}}, {{zillowRegion.state[0]}}</strong></p>
 				</div>
 			</fieldset>
 		</form>
+	<div class="col-lg-6">
+		<h3>Demographic Information</h3>
+		<div class="list-group">
+			<a data-ng-repeat="demographic in zillowDemographics" class="list-group-item">
+				<h4 class="list-group-item-heading">{{demographic.name[0]}}</h4>
+				<p ng-hide="demographic.values[0].city[0].value[0]._">{{demographic.values[0].city[0].value[0]}}</p>
+				<p>{{demographic.values[0].city[0].value[0]._}}</p>
+			</a>
+		</div>
+	</div>
+
+	<div class="col-lg-6">
+		<h3>Property Information</h3>
+		<div class="list-group">
+			<a data-ng-repeat="chart in zillowCharts" class="list-group-item">
+				<h4 class="list-group-item-heading" ng-hide="chart.name[0]._">{{chart.name[0]}}</h4>
+				<h4 class="list-group-item-heading">{{chart.name[0]._}}</h4>
+				<img src="{{chart.url[0]}}" alt=""/>
+			</a>
+		</div>
 	</div>
 </section>
