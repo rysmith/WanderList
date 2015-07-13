@@ -2,7 +2,6 @@
 
 angular.module('locations').controller('LocationsController', ['$scope', '$location', 'Authentication', 'Locations',
 	function($scope, $location, Authentication, Locations) {
-
         $scope.authentication = Authentication;
 
 		$scope.search = function () {
