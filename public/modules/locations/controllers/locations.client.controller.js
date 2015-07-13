@@ -12,7 +12,7 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
 			location.$save(function (response) {
 				//$location.path('locations/' + response._id);
 				console.log(response);
-
+                $scope.searchResponses = response.charts[0].chart;
 				$scope.location = '';
 			}, function (errorResponse) {
 				$scope.error = errorResponse.data.message;
