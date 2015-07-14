@@ -13,30 +13,33 @@
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>
 				</div>
-				<div ng-show="zillowRegion">
-					<p>Results returned for <strong>{{zillowRegion.city[0]}}, {{zillowRegion.state[0]}}</strong></p>
-				</div>
 			</fieldset>
 		</form>
-	<div class="col-lg-6">
-		<h3>Demographic Information</h3>
-		<div class="list-group">
-			<a data-ng-repeat="demographic in zillowDemographics" class="list-group-item">
-				<h4 class="list-group-item-heading">{{demographic.name[0]}}</h4>
-				<p ng-hide="demographic.values[0].city[0].value[0]._">{{demographic.values[0].city[0].value[0]}}</p>
-				<p>{{demographic.values[0].city[0].value[0]._}}</p>
-			</a>
-		</div>
+
+	<hr/>
+
+	<div ng-show="zillowRegion">
+		<p>Results returned for <strong>{{zillowRegion.city[0]}}, {{zillowRegion.state[0]}}</strong></p>
 	</div>
 
-	<div class="col-lg-6">
-		<h3>Property Information</h3>
-		<div class="list-group">
-			<a data-ng-repeat="chart in zillowCharts" class="list-group-item">
-				<h4 class="list-group-item-heading" ng-hide="chart.name[0]._">{{chart.name[0]}}</h4>
-				<h4 class="list-group-item-heading">{{chart.name[0]._}}</h4>
-				<img src="{{chart.url[0]}}" alt=""/>
-			</a>
-		</div>
-	</div>
+	<accordion close-others="oneAtATime" ng-show="zillowCharts">
+		<accordion-group heading="Demographic Information" ng-class="resultsHeader">
+			<div class="list-group">
+				<a data-ng-repeat="demographic in zillowDemographics" class="list-group-item">
+					<h4 class="list-group-item-heading">{{demographic.name[0]}}</h4>
+					<p ng-hide="demographic.values[0].city[0].value[0]._">{{demographic.values[0].city[0].value[0]}}</p>
+					<p>{{demographic.values[0].city[0].value[0]._}}</p>
+				</a>
+			</div>
+		</accordion-group>
+		<accordion-group heading="Property Information">
+			<div class="list-group">
+				<a data-ng-repeat="chart in zillowCharts" class="list-group-item">
+					<h4 class="list-group-item-heading" ng-hide="chart.name[0]._">{{chart.name[0]}}</h4>
+					<h4 class="list-group-item-heading">{{chart.name[0]._}}</h4>
+					<img src="{{chart.url[0]}}" alt=""/>
+				</a>
+			</div>
+		</accordion-group>
+	</accordion>
 </section>
