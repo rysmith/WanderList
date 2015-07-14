@@ -21,6 +21,7 @@ var ApplicationConfiguration = (function() {
 		registerModule: registerModule
 	};
 })();
+
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
@@ -170,7 +171,7 @@ angular.module('articles').factory('Articles', ['$resource',
 
 // Setting up route
 angular.module('core').config(['$stateProvider', '$urlRouterProvider',
-	function($stateProvider, $urlRouterProvider) {
+	function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
 		// Redirect to home view when route not found
 		$urlRouterProvider.otherwise('/');
 
@@ -180,8 +181,15 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html'
 		});
+
+		//uiGmapGoogleMapApiProvider.configure({
+		//	key: 'AIzaSyC7LiXGLghrpTQfhC-wc1ToUkN7FbTDe0c',
+		//	v: '3.17',
+		//	libraries: 'weather,geometry,visualization'
+		//});
 	}
 ]);
+
 'use strict';
 
 angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus',
@@ -425,6 +433,25 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+        $scope.oneAtATime = true;
+
+        $scope.groups = [
+            {
+                title: 'Dynamic Group Header - 1',
+                content: 'Dynamic Group Body - 1'
+            },
+            {
+                title: 'Dynamic Group Header - 2',
+                content: 'Dynamic Group Body - 2'
+            }
+        ];
+
+        $scope.status = {
+            isFirstOpen: true,
+            isFirstDisabled: false
+        };
+
 	}
 ]);
 

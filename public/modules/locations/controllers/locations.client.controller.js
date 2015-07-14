@@ -37,6 +37,7 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
             isFirstOpen: true,
             isFirstDisabled: false
         };
+
 	}
 ]);
 
