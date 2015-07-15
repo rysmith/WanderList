@@ -8,7 +8,7 @@ module.exports = function(app) {
     // location Routes
     app.route('/locations')
         .get(locations.list)
-        .post(users.requiresLogin, locations.search);
+        .post(users.requiresLogin, locations.searchZillow);
 
     //app.route('/locations/:locationId')
     //    .get(locations.read);

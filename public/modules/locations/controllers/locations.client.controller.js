@@ -4,12 +4,12 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
 	function($scope, $location, Authentication, Locations) {
         $scope.authentication = Authentication;
 
-		$scope.search = function () {
+		$scope.searchZillow = function () {
+            console.log('searchZillow is firing on the front end...');
 			var location = new Locations({
 				location: this.location
 			});
 			location.$save(function (response) {
-				//$location.path('locations/' + response._id);
 				console.log(response);
                 $scope.zillowCharts = response.charts[0].chart;
                 $scope.zillowDemographics = response.pages[0].page[2].tables[0].table[0].data[0].attribute;
@@ -19,6 +19,20 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+        $scope.search = function() {
+            console.log('search is firing on the front end...');
+
+            var location = new Locations({
+                location: this.location
+            });
+
+            location.$save(function (response) {
+                console.log(response);
+            }, function (errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        };
 
         $scope.oneAtATime = true;
 

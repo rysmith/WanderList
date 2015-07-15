@@ -13,3 +13,7 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+
+.jumbotron {
+	margin-top: 20px;
+}
