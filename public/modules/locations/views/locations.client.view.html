@@ -18,46 +18,46 @@
 
 	<hr/>
 
-	<div ng-show="zillowRegion">
-		<p>Results returned for <strong>{{zillowRegion.city[0]}}, {{zillowRegion.state[0]}}</strong></p>
-	</div>
-	<div class="row">
-		<div class="col-lg-6">
-			<map center="41.850033, -87.6500523" zoom="10"></map>
-		</div>
-		<div class="col-lg-6">
-			<accordion close-others="oneAtATime" ng-show="zillowCharts">
-				<accordion-group heading="Demographic Information" ng-class="resultsHeader">
-					<div class="list-group">
-						<a data-ng-repeat="demographic in zillowDemographics" class="list-group-item">
-							<h4 class="list-group-item-heading">{{demographic.name[0]}}</h4>
-							<p ng-hide="demographic.values[0].city[0].value[0]._">{{demographic.values[0].city[0].value[0]}}</p>
-							<p>{{demographic.values[0].city[0].value[0]._}}</p>
-						</a>
-					</div>
-				</accordion-group>
-				<accordion-group heading="Property Information">
-					<div class="list-group">
-						<a data-ng-repeat="chart in zillowCharts" class="list-group-item">
-							<h4 class="list-group-item-heading" ng-hide="chart.name[0]._">{{chart.name[0]}}</h4>
-							<h4 class="list-group-item-heading">{{chart.name[0]._}}</h4>
-							<img src="{{chart.url[0]}}" alt=""/>
-						</a>
-					</div>
-				</accordion-group>
-				<accordion-group heading="Restaurant Information">
-					<div class="list-group">
-						<a data-ng-repeat="restaurant in yelp" class="list-group-item">
-							<h4 class="list-group-item-heading">{{restaurant.name}}</h4>
-							<img src="{{restaurant.rating_img_url_small}}" alt="yelp rating"/>
-							<p>{{restaurant.url}}</p>
+	<!--<div ng-show="zillowRegion">-->
+		<!--<p>Results returned for <strong>{{zillowRegion.city[0]}}, {{zillowRegion.state[0]}}</strong></p>-->
+	<!--</div>-->
+	<!--<div class="row">-->
+		<!--<div class="col-lg-6">-->
+			<!--<map center="41.850033, -87.6500523" zoom="10"></map>-->
+		<!--</div>-->
+		<!--<div class="col-lg-6">-->
+			<!--<accordion close-others="oneAtATime" ng-show="zillowCharts">-->
+				<!--<accordion-group heading="Demographic Information" ng-class="resultsHeader">-->
+					<!--<div class="list-group">-->
+						<!--<a data-ng-repeat="demographic in zillowDemographics" class="list-group-item">-->
+							<!--<h4 class="list-group-item-heading">{{demographic.name[0]}}</h4>-->
+							<!--<p ng-hide="demographic.values[0].city[0].value[0]._">{{demographic.values[0].city[0].value[0]}}</p>-->
+							<!--<p>{{demographic.values[0].city[0].value[0]._}}</p>-->
+						<!--</a>-->
+					<!--</div>-->
+				<!--</accordion-group>-->
+				<!--<accordion-group heading="Property Information">-->
+					<!--<div class="list-group">-->
+						<!--<a data-ng-repeat="chart in zillowCharts" class="list-group-item">-->
+							<!--<h4 class="list-group-item-heading" ng-hide="chart.name[0]._">{{chart.name[0]}}</h4>-->
+							<!--<h4 class="list-group-item-heading">{{chart.name[0]._}}</h4>-->
+							<!--<img src="{{chart.url[0]}}" alt=""/>-->
+						<!--</a>-->
+					<!--</div>-->
+				<!--</accordion-group>-->
+				<!--<accordion-group heading="Restaurant Information">-->
+					<!--<div class="list-group">-->
+						<!--<a data-ng-repeat="restaurant in yelp" class="list-group-item">-->
+							<!--<h4 class="list-group-item-heading">{{restaurant.name}}</h4>-->
+							<!--<img src="{{restaurant.rating_img_url_small}}" alt="yelp rating"/>-->
+							<!--<p>{{restaurant.url}}</p>-->
 
-						</a>
-					</div>
-				</accordion-group>
-			</accordion>
-		</div>
-	</div>
+						<!--</a>-->
+					<!--</div>-->
+				<!--</accordion-group>-->
+			<!--</accordion>-->
+		<!--</div>-->
+	<!--</div>-->
 </section>
 
 

@@ -13,7 +13,7 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
                 $scope.zillowCharts = response.zillow.charts[0].chart;
                 $scope.zillowDemographics = response.zillow.pages[0].page[2].tables[0].table[0].data[0].attribute;
                 $scope.zillowRegion = response.zillow.region[0];
-				$scope.yelp = response.yelp.businesses;
+                $scope.yelp = response.yelp.businesses;
                 $scope.location = '';
                 //var currentSearchLocation = new google.maps.LatLng(response.zillow.region[0].latitude[0], response.zillow.region[0].longitude[0]);
                 //if (response) {
