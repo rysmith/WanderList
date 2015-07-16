@@ -2,9 +2,9 @@
 		<form name="searchForm" class="form-horizontal" data-ng-submit="search()" novalidate>
 			<fieldset>
 				<div class="form-group">
-					<label class="control-label" for="location">Location Search</label>
+					<label class="control-label" for="location">Please enter a city and state</label>
 					<div class="controls">
-						<input name="location" type="text" data-ng-model="location" id="location" class="form-control" placeholder="Enter a location" required>
+						<input name="location" type="text" data-ng-model="location" id="location" class="form-control" placeholder="e.g. Santa Barbara, CA" required>
 					</div>
 				</div>
 				<div class="form-group">
@@ -26,33 +26,33 @@
 			<map center="41.850033, -87.6500523" zoom="10"></map>
 		</div>
 		<div class="col-lg-6">
-			<accordion close-others="oneAtATime" ng-show="zillowCharts">
-				<accordion-group heading="Demographic Information" ng-class="resultsHeader">
+			<accordion ng-show="zillowCharts">
+				<accordion-group heading="Demographic Information">
 					<div class="list-group">
-						<a data-ng-repeat="demographic in zillowDemographics" class="list-group-item">
+						<div ng-repeat="demographic in zillowDemographics" class="list-group-item">
 							<h4 class="list-group-item-heading">{{demographic.name[0]}}</h4>
 							<p ng-hide="demographic.values[0].city[0].value[0]._">{{demographic.values[0].city[0].value[0]}}</p>
 							<p>{{demographic.values[0].city[0].value[0]._}}</p>
-						</a>
+						</div>
 					</div>
 				</accordion-group>
 				<accordion-group heading="Property Information">
 					<div class="list-group">
-						<a data-ng-repeat="chart in zillowCharts" class="list-group-item">
+						<div data-ng-repeat="chart in zillowCharts" class="list-group-item">
 							<h4 class="list-group-item-heading" ng-hide="chart.name[0]._">{{chart.name[0]}}</h4>
 							<h4 class="list-group-item-heading">{{chart.name[0]._}}</h4>
 							<img src="{{chart.url[0]}}" alt=""/>
-						</a>
+						</div>
 					</div>
 				</accordion-group>
 				<accordion-group heading="Restaurant Information">
 					<div class="list-group">
-						<a data-ng-repeat="restaurant in yelp" class="list-group-item">
+						<div data-ng-repeat="restaurant in yelp" class="list-group-item">
 							<h4 class="list-group-item-heading">{{restaurant.name}}</h4>
 							<img src="{{restaurant.rating_img_url_small}}" alt="yelp rating"/>
 							<p>{{restaurant.url}}</p>
 
-						</a>
+						</div>
 					</div>
 				</accordion-group>
 			</accordion>

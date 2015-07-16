@@ -25,6 +25,8 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
 		};
         $scope.oneAtATime = true;
 
+
+
 	}
 ]);
 
