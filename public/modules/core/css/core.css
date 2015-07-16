@@ -14,8 +14,18 @@
 	border-color: #78FA89;
 }
 
+.bg-wrapper {
+	background: url("/modules/core/img/brand/core-bg.jpg");
+	overflow: auto;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
 body {
-	background: url("/modules/core/img/brand/core-bg.jpg") no-repeat center center fixed;
+	background: url("/modules/users/img/pink_rice.png") no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -23,7 +33,7 @@ body {
 }
 
 .jumbotron {
-	margin-top: 20px;
+	margin-top: 200px;
 	opacity: 0.95;
 }
 
