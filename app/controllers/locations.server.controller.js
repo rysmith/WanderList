@@ -8,11 +8,25 @@ var mongoose = require('mongoose'),
     request = require('request'),
     errorHandler = require('./errors.server.controller'),
     Location = mongoose.model('Location'),
-    parseString = require('xml2js').parseString;
+    parseString = require('xml2js').parseString,
+    Forecast = require('forecast.io');
 
 exports.search = function(req, res) {
 
     var apiResponse = {};
+
+    var options = {
+            APIKey: process.env.FORECAST_API_KEY,
+            timeout: 1000
+        },
+        forecast = new Forecast(options);
+
+    // add this to zillow call back to get lat/lon data
+    forecast.get(37.8267, -122.423, function (err, res, data) {
+        if (err) throw err;
+        console.log('res: ' + res);
+        console.log('data: ' + data);
+    });
 
     var getZillowData = function(callback) {
         var cityState = req.body.location.split(',');
@@ -49,7 +63,6 @@ exports.search = function(req, res) {
 
     yelp.search({term: 'food', location: '"' + req.body.location + '"'}, function(error, data) {
         apiResponse.yelp = data;
-        console.log(apiResponse);
         if (apiResponse.zillow && apiResponse.yelp) {
             res.send(apiResponse);
         }
