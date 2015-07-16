@@ -11,8 +11,10 @@ var mongoose = require('mongoose'),
     parseString = require('xml2js').parseString;
 
 exports.search = function(req, res) {
-    var apiResponse = [];
-    var getZillowData = function(req, res, callback) {
+
+    var apiResponse = {};
+
+    var getZillowData = function(callback) {
         var cityState = req.body.location.split(',');
         var city = cityState[0].trim();
         var state = cityState[1].trim();
@@ -28,14 +30,6 @@ exports.search = function(req, res) {
         });
     };
 
-    getZillowData(req, res, function(zilloResponse) {
-        parseString(zilloResponse, function (err, result) {
-            console.log(result['Demographics:demographics'].message[0]);
-            apiResponse.push({zillow: result['Demographics:demographics'].response[0]});
-            console.log(apiResponse);
-        });
-    });
-
     var yelp = require('yelp').createClient({
         consumer_key: process.env.YELP_KEY,
         consumer_secret: process.env.YELP_SECRET,
@@ -43,9 +37,22 @@ exports.search = function(req, res) {
         token_secret: process.env.YELP_TOKEN_SECRET
     });
 
+    getZillowData(function(zilloResponse) {
+        parseString(zilloResponse, function (err, result) {
+            console.log(result['Demographics:demographics'].message[0]);
+            apiResponse.zillow = result['Demographics:demographics'].response[0];
+            if (apiResponse.zillow && apiResponse.yelp) {
+                res.send(apiResponse);
+            }
+        });
+    });
+
     yelp.search({term: 'food', location: '"' + req.body.location + '"'}, function(error, data) {
-        apiResponse.push({yelp: data});
+        apiResponse.yelp = data;
         console.log(apiResponse);
+        if (apiResponse.zillow && apiResponse.yelp) {
+            res.send(apiResponse);
+        }
     });
 
 
