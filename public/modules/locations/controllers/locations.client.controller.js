@@ -10,9 +10,9 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
 			});
 			location.$save(function (response) {
 				console.log(response.yelp);
-				console.log(response.zillow.charts[0].chart);
-				console.log(response.zillow.pages[0].page[2].tables[0].table[0].data[0].attribute);
-				console.log(response.zillow.region[0]);
+				//console.log(response.zillow.charts[0].chart);
+				//console.log(response.zillow.pages[0].page[2].tables[0].table[0].data[0].attribute);
+				//console.log(response.zillow.region[0]);
                 //$scope.zillowCharts = response.zillow.charts[0].chart;
                 //$scope.zillowDemographics = response.zillow.pages[0].page[2].tables[0].table[0].data[0].attribute;
                 //$scope.zillowRegion = response.zillow.region[0];
