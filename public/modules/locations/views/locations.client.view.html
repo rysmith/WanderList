@@ -1,5 +1,5 @@
 <section data-ng-controller="LocationsController">
-		<form name="searchForm" class="form-horizontal" data-ng-submit="searchZillow();search()" novalidate>
+		<form name="searchForm" class="form-horizontal" data-ng-submit="search()" novalidate>
 			<fieldset>
 				<div class="form-group">
 					<label class="control-label" for="location">Location Search</label>
@@ -21,7 +21,7 @@
 	<div ng-show="zillowRegion">
 		<p>Results returned for <strong>{{zillowRegion.city[0]}}, {{zillowRegion.state[0]}}</strong></p>
 	</div>
-
+	<map center="41.850033, -87.6500523" zoom="12"></map>
 	<accordion close-others="oneAtATime" ng-show="zillowCharts">
 		<accordion-group heading="Demographic Information" ng-class="resultsHeader">
 			<div class="list-group">
@@ -42,6 +42,12 @@
 			</div>
 		</accordion-group>
 	</accordion>
+
+
+
+
+
 </section>
+
 
 

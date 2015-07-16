@@ -4,53 +4,25 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
 	function($scope, $location, Authentication, Locations) {
         $scope.authentication = Authentication;
 
-		$scope.searchZillow = function () {
-            console.log('searchZillow is firing on the front end...');
+		$scope.search = function () {
 			var location = new Locations({
 				location: this.location
 			});
 			location.$save(function (response) {
-				console.log(response);
+				console.log(response.region[0].latitude[0]);
                 $scope.zillowCharts = response.charts[0].chart;
                 $scope.zillowDemographics = response.pages[0].page[2].tables[0].table[0].data[0].attribute;
                 $scope.zillowRegion = response.region[0];
 				$scope.location = '';
+                var currentSearchLocation = new google.maps.LatLng(response.region[0].latitude[0], response.region[0].longitude[0]);
+                if (response) {
+                    $scope.map.setCenter(currentSearchLocation);
+                }
 			}, function (errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
-
-        $scope.search = function() {
-            console.log('search is firing on the front end...');
-
-            var location = new Locations({
-                location: this.location
-            });
-
-            location.$save(function (response) {
-                console.log(response);
-            }, function (errorResponse) {
-                $scope.error = errorResponse.data.message;
-            });
-        };
-
         $scope.oneAtATime = true;
-
-        $scope.groups = [
-            {
-                title: 'Dynamic Group Header - 1',
-                content: 'Dynamic Group Body - 1'
-            },
-            {
-                title: 'Dynamic Group Header - 2',
-                content: 'Dynamic Group Body - 2'
-            }
-        ];
-
-        $scope.status = {
-            isFirstOpen: true,
-            isFirstDisabled: false
-        };
 
 	}
 ]);

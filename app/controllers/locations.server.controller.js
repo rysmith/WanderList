@@ -11,20 +11,17 @@ var mongoose = require('mongoose'),
     parseString = require('xml2js').parseString;
 
 exports.search = function(req, res) {
-    console.log('search is firing on the back end...');
-    return res.json('this is search returning from the backend...');
-
-}; // end of search
-
-exports.searchZillow = function(req, res) {
-    console.log('searchZillow is firing on the backend...');
+    var apiResponse = [];
     var getZillowData = function(req, res, callback) {
+        var cityState = req.body.location.split(',');
+        var city = cityState[0].trim();
+        var state = cityState[1].trim();
         request.post({
             'url': 'http://www.zillow.com/webservice/GetDemographics.htm',
             form: {
                 'zws-id': process.env.ZILLO_TOKEN,
-                'city': "'" + req.body.location + "'",
-                'state': 'CA'
+                'city': '"' + city + '"',
+                'state': '"' + state + '"'
             }
         }, function(error, response, body) {
             callback(body);
@@ -34,25 +31,25 @@ exports.searchZillow = function(req, res) {
     getZillowData(req, res, function(zilloResponse) {
         parseString(zilloResponse, function (err, result) {
             console.log(result['Demographics:demographics'].message[0]);
-
-            return res.json(result['Demographics:demographics'].response[0]);
+            apiResponse.push({zillow: result['Demographics:demographics'].response[0]});
+            console.log(apiResponse);
         });
     });
-}; // end of getZillowData
 
-exports.searchYelp = function(req, res) {
-    var yelp = require("yelp").createClient({
-        consumer_key: "HbKfzZR76Lf9GztGGKT72Q",
-        consumer_secret: "HhARAjf62c0y4YEUjQ0tr-I2ucA",
-        token: "8v03X3eY0jA5yHm9L6xduBa0Y--UIlY5",
-        token_secret: "7S-H0ub5mJvRYGmD1_LVdB2XdQ0"
+    var yelp = require('yelp').createClient({
+        consumer_key: process.env.YELP_KEY,
+        consumer_secret: process.env.YELP_SECRET,
+        token: process.env.YELP_TOKEN,
+        token_secret: process.env.YELP_TOKEN_SECRET
     });
 
-    yelp.search({term: "food", location: '"' + req.body.location + '"'}, function(error, data) {
-        res.json(data);
-        console.log(data);
+    yelp.search({term: 'food', location: '"' + req.body.location + '"'}, function(error, data) {
+        apiResponse.push({yelp: data});
+        console.log(apiResponse);
     });
-};
+
+
+}; // end of search
 
 exports.searchERSI = function(req, res) {
 
@@ -92,7 +89,7 @@ exports.searchERSI = function(req, res) {
     // parse the search results
     parseSearch(req, res, function(parsedResponse) {
         console.log(parsedResponse);
-        return res.json(parsedResponse)
+        return res.json(parsedResponse);
     });
 
     // once the geographic data is received check to see if it's already in the db, if not, save it
