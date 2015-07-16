@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'wanderlist';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'ngMap'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
@@ -42,6 +42,8 @@ angular.element(document).ready(function() {
 	//Then init the app
 	angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
 });
+
+
 'use strict';
 
 // Use Applicaion configuration module to register a new module
@@ -70,6 +72,7 @@ angular.module('articles').run(['Menus',
 		Menus.addSubMenuItem('topbar', 'articles', 'New Article', 'articles/create');
 	}
 ]);
+
 'use strict';
 
 // Setting up route
@@ -218,6 +221,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.authentication = Authentication;
 	}
 ]);
+
 'use strict';
 
 //Menu service used for managing  menus
@@ -423,34 +427,21 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
 				location: this.location
 			});
 			location.$save(function (response) {
-				//$location.path('locations/' + response._id);
-				console.log(response);
-                $scope.zillowCharts = response.charts[0].chart;
-                $scope.zillowDemographics = response.pages[0].page[2].tables[0].table[0].data[0].attribute;
-                $scope.zillowRegion = response.region[0];
-				$scope.location = '';
+				console.log(response.yelp);
+                $scope.zillowCharts = response.zillow.charts[0].chart;
+                $scope.zillowDemographics = response.zillow.pages[0].page[2].tables[0].table[0].data[0].attribute;
+                $scope.zillowRegion = response.zillow.region[0];
+				$scope.yelp = response.yelp.businesses;
+                $scope.location = '';
+                var currentSearchLocation = new google.maps.LatLng(response.zillow.region[0].latitude[0], response.zillow.region[0].longitude[0]);
+                if (response) {
+                    $scope.map.setCenter(currentSearchLocation);
+                }
 			}, function (errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
-
         $scope.oneAtATime = true;
-
-        $scope.groups = [
-            {
-                title: 'Dynamic Group Header - 1',
-                content: 'Dynamic Group Body - 1'
-            },
-            {
-                title: 'Dynamic Group Header - 2',
-                content: 'Dynamic Group Body - 2'
-            }
-        ];
-
-        $scope.status = {
-            isFirstOpen: true,
-            isFirstDisabled: false
-        };
 
 	}
 ]);
