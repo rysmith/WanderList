@@ -44,6 +44,8 @@ angular.element(document).ready(function() {
 });
 
 
+
+
 'use strict';
 
 // Use Applicaion configuration module to register a new module
@@ -442,6 +444,8 @@ angular.module('locations').controller('LocationsController', ['$scope', '$locat
 			});
 		};
         $scope.oneAtATime = true;
+
+
 
 	}
 ]);
