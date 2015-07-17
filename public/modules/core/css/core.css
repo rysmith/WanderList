@@ -33,7 +33,29 @@ body {
 }
 
 .jumbotron {
-	margin-top: 200px;
+	margin-top: 100px;
+	opacity: 0.95;
+	text-align: center;
+}
+
+.marketing-wrapper > div:first-child {
+	margin-top: 400px;
+}
+
+.marketing-wrapper > div:nth-child(2),
+.marketing-wrapper > div:nth-child(3) {
+	margin-top: 100px;
+}
+
+.marketing {
+	overflow:auto;
+}
+
+.marketing div {
+	font-size: 150px;
+	text-align: center;
+	background-color: white;
 	opacity: 0.95;
 }
+
 

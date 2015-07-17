@@ -29,10 +29,10 @@
 			<div class="col-lg-6">
 				<accordion ng-show="zillowCharts">
 					<accordion-group heading="Demographic Information">
-						<div class="list-group">
-							<div ng-repeat="demographic in zillowDemographics" class="list-group-item">
+						<div class="list-group" >
+							<div ng-repeat="demographic in zillowDemographics" class="list-group-item" >
 								<h4 class="list-group-item-heading">{{demographic.name[0]}}</h4>
-								<p ng-hide="demographic.values[0].city[0].value[0]._">{{demographic.values[0].city[0].value[0]}}</p>
+								<p ng-hide="demographic.values[0].city[0].value[0]._" >{{demographic.values[0].city[0].value[0]}}</p>
 								<p>{{demographic.values[0].city[0].value[0]._}}</p>
 							</div>
 						</div>
