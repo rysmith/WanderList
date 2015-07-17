@@ -13,8 +13,9 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
-				'public/lib/bootswatch/cosmo/bootstrap.css',
-				'public/lib/animate.css/animate.css',
+				'public/lib/bootstrap/dist/css/bootstrap.css',
+				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/animate.css/animate.min.css',
 
 			],
 			js: [
