@@ -44,7 +44,7 @@ exports.search = function(req, res) {
         // grab the state and trim trailing white spaces
         var state = cityState[1].trim();
 
-        // send the post request over to the zillow API using the request module
+        // send the POST request over to the zillow API using the request module
         request.post({
             'url': 'http://www.zillow.com/webservice/GetDemographics.htm',
             form: {
@@ -57,7 +57,7 @@ exports.search = function(req, res) {
         });
     };
 
-    // set up the variables for the yelp API call
+    // set up the environmental variables for the yelp API call
     var yelp = require('yelp').createClient({
         consumer_key: process.env.YELP_KEY,
         consumer_secret: process.env.YELP_SECRET,
@@ -65,10 +65,16 @@ exports.search = function(req, res) {
         token_secret: process.env.YELP_TOKEN_SECRET
     });
 
-    // get zillow data and build into the API response object
+    // get and parse zillow data, then build into the API response object
     getZillowData(function(zilloResponse) {
+
+        // convert XML to json with parseString module
         parseString(zilloResponse, function (err, result) {
+
+            // log the message from zillow to check API usage warnings
             console.log(result['Demographics:demographics'].message[0]);
+
+            // update the apiResponse object with the zillow response
             apiResponse.zillow = result['Demographics:demographics'].response[0];
 
             // if yelp API call is completed, go ahead and send the response back to the view
@@ -79,8 +85,10 @@ exports.search = function(req, res) {
         });
     });
 
-    // get data from yelp: restaurant information and build into the API response object
+    // get data from yelp: restaurant information
     yelp.search({term: 'food', location: '"' + req.body.location + '"'}, function(error, data) {
+
+        // build yelp response into the API response object
         apiResponse.yelp = data;
 
         // if zillow API call is completed, go ahead and send the response back to the view
@@ -89,7 +97,6 @@ exports.search = function(req, res) {
             res.send(apiResponse);
         }
     });
-
 
 }; // end of search
 
