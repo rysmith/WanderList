@@ -11,10 +11,13 @@ var mongoose = require('mongoose'),
     parseString = require('xml2js').parseString,
     Forecast = require('forecast.io');
 
+// search for data related to the users input (city and state)
 exports.search = function(req, res) {
 
+    // new up a new object to pass back to the view with the API responses
     var apiResponse = {};
 
+    // API key for weather data, not currently in use
     var options = {
             APIKey: process.env.FORECAST_API_KEY,
             timeout: 1000
@@ -28,10 +31,20 @@ exports.search = function(req, res) {
         console.log('data: ' + data);
     });
 
+    // get data from zillow: home prices and demographics
     var getZillowData = function(callback) {
+
+        // parse the user input
+        // expects: city, state
         var cityState = req.body.location.split(',');
+
+        // grab the city and trim trailing white spaces
         var city = cityState[0].trim();
+
+        // grab the state and trim trailing white spaces
         var state = cityState[1].trim();
+
+        // send the post request over to the zillow API using the request module
         request.post({
             'url': 'http://www.zillow.com/webservice/GetDemographics.htm',
             form: {
@@ -44,6 +57,7 @@ exports.search = function(req, res) {
         });
     };
 
+    // set up the variables for the yelp API call
     var yelp = require('yelp').createClient({
         consumer_key: process.env.YELP_KEY,
         consumer_secret: process.env.YELP_SECRET,
@@ -51,18 +65,26 @@ exports.search = function(req, res) {
         token_secret: process.env.YELP_TOKEN_SECRET
     });
 
+    // get zillow data and build into the API response object
     getZillowData(function(zilloResponse) {
         parseString(zilloResponse, function (err, result) {
             console.log(result['Demographics:demographics'].message[0]);
             apiResponse.zillow = result['Demographics:demographics'].response[0];
+
+            // if yelp API call is completed, go ahead and send the response back to the view
+            // otherwise do nothing
             if (apiResponse.zillow && apiResponse.yelp) {
                 res.send(apiResponse);
             }
         });
     });
 
+    // get data from yelp: restaurant information and build into the API response object
     yelp.search({term: 'food', location: '"' + req.body.location + '"'}, function(error, data) {
         apiResponse.yelp = data;
+
+        // if zillow API call is completed, go ahead and send the response back to the view
+        // otherwise do nothing
         if (apiResponse.zillow && apiResponse.yelp) {
             res.send(apiResponse);
         }
@@ -71,6 +93,8 @@ exports.search = function(req, res) {
 
 }; // end of search
 
+// get geographic data from ArcGIS
+// not currently in use
 exports.searchERSI = function(req, res) {
 
     // parse the search results, currently parsing zip codes
@@ -148,6 +172,7 @@ exports.searchERSI = function(req, res) {
 
 /**
  * List of Locations
+ * Not currently in use
  */
 exports.list = function(req, res) {
     console.log(req);
